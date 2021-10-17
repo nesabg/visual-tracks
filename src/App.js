@@ -1,12 +1,25 @@
+import { Switch, Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+
 import './App.css'
+import Main from "./components/Main";
+import Navigation from "./components/Navigation";
+import Homepage from "./pages/Homepage";
+import Login from "./pages/Login";
+import Register from './pages/Register'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Starting Point</h1>
-      </header>
-    </div>
+    <Router>
+      <Navigation />
+      <Main>
+        <Switch>
+          <Route path='/' exact component={Homepage}/> 
+          <Route path='/register' component={Register}/> 
+          <Route path='/login' component={Login}/> 
+        </Switch>
+      </Main>
+    </Router>
   )
 }
 
