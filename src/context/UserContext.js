@@ -5,24 +5,30 @@ export const UserContext = React.createContext()
 const UserContextProvider = (props) => {
 
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [auth, setAuth] = useState('')
+    const [isLogin, setIsLogin] = useState(false)
 
-    const login = (email, password) => {
+    const login = async (email, password) => {
 
         const body = JSON.stringify({email, password})
 
-        console.log('From context', body)
+        try{
+            const respone = await fetch(`http://localhost:3001/api/user/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body
+            })
+            const token = await respone.json()
 
-        fetch(`http://localhost:3001/api/user/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body
-        }).then(res => res.json())
-        .then(data => console.log(data))
-        .catch(e => console.log(e))
+            setEmail(email)
+            setIsLogin(true)
+            
+            document.cookie = `track-auth=${token}`
+
+            }catch(e){
+                console.error(e)
+            }
     }
 
     const register = (email, password) => {
@@ -34,7 +40,7 @@ const UserContextProvider = (props) => {
     }
 
     return(
-        <UserContext.Provider value={{email, password, auth, login, register}}>
+        <UserContext.Provider value={{email, isLogin, login, register}}>
             {props.children}
         </UserContext.Provider>
     )
