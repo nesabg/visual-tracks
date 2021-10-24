@@ -6,12 +6,19 @@ import ValidateField from '../components/ValidateField'
 import { UserContext } from '../context/UserContext'
 import styled from 'styled-components'
 import Heading from '../components/Heading'
+import { Link } from 'react-router-dom'
 
 const Danger = styled.div`
     color: red;
     margin-top: -10px;
     font-size: 14px;
 `   
+const RedirectToLogin = styled.div`
+    a {
+        color: white !important;
+    }
+    color: white;
+`
 
 const Register = () => {
 
@@ -55,6 +62,10 @@ const Register = () => {
 
                 <Button type="submit" name="Register"/>
             </form>
+            <RedirectToLogin>
+                <span>If you have account login </span>
+                <Link to="/login" >Here</Link>
+            </RedirectToLogin>
         </div>
     )
 }
