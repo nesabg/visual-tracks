@@ -13,25 +13,32 @@ const RedirectToLogin = styled.div`
     }
     color: white;
 `
+const Danger = styled.div`
+    color: red;
+    margin-top: -10px;
+    font-size: 14px;
+`   
 
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState(false)
 
     const history = useHistory()
 
     const { login } = useContext(UserContext)
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault()
-        login(email, password)
-        history.push('/')
+        const status = await login(email, password)
+        status ? history.push('/') : setError(true)
     }
 
     return (
         <div>
             <Heading title="Login page" />
+            { error ? <Danger>Username or password are inccorect</Danger> : null }
             <form onSubmit={submitHandler}> 
                 <Input type="text" label="Email address" id="email" handler={setEmail}/>
                 <Input type="password" label="Password" id="password" handler={setPassword}/>
