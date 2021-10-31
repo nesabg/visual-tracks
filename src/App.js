@@ -10,7 +10,7 @@ import Register from './pages/Register'
 
 const Wrapper = styled.div`
     background-color: #282c34;
-    height: 100vh;
+    height: 100%;
 `
 
 

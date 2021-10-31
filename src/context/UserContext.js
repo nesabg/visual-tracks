@@ -17,18 +17,23 @@ const UserContextProvider = (props) => {
                     },
                     body: JSON.stringify({email, password})
                 })
-
-                if(response.status !== 403){
+                if(response.status === 403){
+                    return false
+                } else {
                     const token = await response.json()
 
                     setEmail(email)
                     setIsLogin(true)
                     
                     document.cookie = `track-auth=${token}`
+                    return true
                 }
+
+                
 
             }catch(e){
                 console.error(e)
+
             }
     }
 
