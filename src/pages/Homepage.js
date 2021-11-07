@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import Heading from '../components/Heading'
+import RenderTrack from '../components/RenderTrack'
 import { UserContext } from '../context/UserContext'
 
 const Button = styled.a`
@@ -9,13 +10,12 @@ const Button = styled.a`
     color: white;
     font-size: 18px;
 `
-const SeeIp = styled.p`
-    color: white;
-`
+
 
 const Homepage = () => {
 
     const [tracks, setTracks] = useState([])
+    const [render, setRender] = useState(false)
     const { isLogin } = useContext(UserContext)
 
 
@@ -42,13 +42,17 @@ const Homepage = () => {
                 }
             })
 
-            console.log(newArr)
+            const finalData = Object.entries(newArr)
 
-            setTracks(ar)
+            setTracks(finalData)
 
         }catch(e){
             console.error(e) 
         }
+    }
+
+    const handleClick = (track) => {
+        setRender(!render)
     }
 
     return (
@@ -56,7 +60,7 @@ const Homepage = () => {
             <Heading title="Home page" />
             { isLogin ? <Button onClick={getData}>Get Data</Button> : <p>Please login ....</p>}
             { tracks.length > 0 ? tracks.map( e => {
-                return <SeeIp key={e._id}>{e.ip}</SeeIp>
+                return <RenderTrack key={e[0]} track={e} /> 
             }) : null}
         </div>
     )
