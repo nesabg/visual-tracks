@@ -4,11 +4,14 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import UserContextProvider from './context/UserContext'
+import TracksContextProvider from './context/TracksContext'
 
 ReactDOM.render(
   <React.StrictMode>
     <UserContextProvider>
-      <App />
+      <TracksContextProvider>
+        <App />
+      </TracksContextProvider>
     </UserContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
