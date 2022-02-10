@@ -21,7 +21,7 @@ const Button = styled.a`
 const Homepage = () => {
 
     const { isLogin } = useContext(UserContext)
-    const { getData, tracks } = useContext(TrackContext)
+    const { getData, tracks, tracksToRender } = useContext(TrackContext)
 
 
 
@@ -29,16 +29,15 @@ const Homepage = () => {
         <div>
             <Heading title="Home page" />
             { isLogin ? <Button onClick={getData}>Get Data</Button> : <p>Please login ....</p>}
-            {/* { tracks.length > 0 ?  <Pagination tracks={tracks.length} /> : null}     */}
             <hr/>
+            <div>
+                {tracksToRender.map((track, i) => {
+                    return <RenderTrack track={track} key={i}/>
+                })}
+            </div>
             <Pagination tracks={tracks.length} />
         </div>
     )
 }
 
 export default Homepage
-
-            /* { isLogin ? <Button onClick={getData}>Get Data</Button> : <p>Please login ....</p>}
-            { tracks.length > 0 ? tracks.map( e => {
-                return <RenderTrack key={e[0]} track={e} /> 
-            }) : null} */
