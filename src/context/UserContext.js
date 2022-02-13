@@ -60,8 +60,13 @@ const UserContextProvider = (props) => {
          }
     }
 
+    const logout = () => {
+        document.cookie = 'track-auth=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        setIsLogin(false)
+    }
+
     return(
-        <UserContext.Provider value={{email, isLogin, login, register}}>
+        <UserContext.Provider value={{email, isLogin, login, register, logout}}>
             {props.children}
         </UserContext.Provider>
     )
