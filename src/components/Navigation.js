@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { UserContext } from '../context/UserContext'
 
 const Header = styled.header`
     padding: 5px 0;
@@ -38,14 +39,23 @@ const NavTemplate = styled.nav`
 `
 
 const Navigation = () => {
+
+    const { isLogin, logout } = useContext(UserContext)
+
     return (
         <Header>
             <NavTemplate>
                 <Logo>VISUAL TRACKS</Logo>
                 <div>
                     <Link to="/">Home</Link>
-                    <Link to="register">Register</Link>
-                    <Link to="login">Login</Link>
+                    { isLogin ? 
+                        <Link to="#" onClick={logout}>Logout</Link> :
+                        <>
+                        <Link to="register">Register</Link>
+                        <Link to="login">Login</Link>
+                        </>
+                    }
+
                 </div>
             </NavTemplate>
         </Header>

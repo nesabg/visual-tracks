@@ -6,7 +6,8 @@ const TracksContextProvider = (props) => {
 
     const [tracks, setTracks] = useState([])
     const [tracksToRender, setTracksToRender] = useState([])
-    const authCookie = document.cookie.length > 0 ? document.cookie.split('; ').find(e => e.includes('track-auth')).split('=')[1] : null
+
+    const authCookie = document.cookie.length > 0 ? document.cookie.split('; ').find(e => e.includes('track-auth')).split('=')[1] : null   
 
     const getData = async (e) => {
         try{
@@ -41,12 +42,12 @@ const TracksContextProvider = (props) => {
     }
 
     const changeTracksToRender = (page) => {
-        const coef = page * 10
+        const coef = page * 20
         setTracksToRender(tracks.slice(coef, coef + 10))
     }
 
     return(
-        <TrackContext.Provider value={{getData, tracks, tracksToRender, changeTracksToRender}}>
+        <TrackContext.Provider value={{getData, tracks, tracksToRender, changeTracksToRender, setTracksToRender}}>
             {props.children}
         </TrackContext.Provider>
     )

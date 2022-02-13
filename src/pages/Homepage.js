@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import Heading from '../components/Heading'
 import Pagination from '../components/Pagination'
@@ -21,11 +21,15 @@ const Button = styled.a`
 const Homepage = () => {
 
     const { isLogin } = useContext(UserContext)
-    const { getData, tracks, tracksToRender } = useContext(TrackContext)
+    const { getData, tracks, tracksToRender, setTracksToRender } = useContext(TrackContext)
 
+   useEffect(() => {
+       if(!isLogin){
+            setTracksToRender([])
+        }
+   },[isLogin, setTracksToRender])
 
-
-    return (
+   return (
         <div>
             <Heading title="Home page" />
             { isLogin ? <Button onClick={getData}>Get Data</Button> : <p>Please login ....</p>}
@@ -35,7 +39,7 @@ const Homepage = () => {
                     return <RenderTrack track={track} key={i}/>
                 })}
             </div>
-            <Pagination tracks={tracks.length} />
+            {isLogin ? <Pagination tracks={tracks.length} /> : null }
         </div>
     )
 }
