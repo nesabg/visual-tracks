@@ -17,6 +17,10 @@ const Button = styled.a`
     cursor: pointer;
 `
 
+const LoginMessage = styled.div`
+    color: white;
+`
+
 
 const Homepage = () => {
 
@@ -32,11 +36,11 @@ const Homepage = () => {
    return (
         <div>
             <Heading title="Home page" />
-            { isLogin ? <Button onClick={getData}>Get Data</Button> : <p>Please login ....</p>}
+            { isLogin ? <Button onClick={getData}>Get Data</Button> : <LoginMessage>Please login ....</LoginMessage>}
             <hr/>
             <div>
-                {tracksToRender.map((track, i) => {
-                    return <RenderTrack track={track} key={i}/>
+                {tracksToRender.map((track) => {
+                    return <RenderTrack track={track} key={track[0]}/>
                 })}
             </div>
             {isLogin ? <Pagination tracks={tracks.length} /> : null }
