@@ -40,7 +40,7 @@ const NavTemplate = styled.nav`
 
 const Navigation = () => {
 
-    const { isLogin, logout } = useContext(UserContext)
+    const { isLogin, logout, email } = useContext(UserContext)
 
     return (
         <Header>
@@ -49,7 +49,11 @@ const Navigation = () => {
                 <div>
                     <Link to="/">Home</Link>
                     { isLogin ? 
-                        <Link to="#" onClick={logout}>Logout</Link> :
+                        <>
+                        <Link to="#" onClick={logout}>Logout</Link>
+                        <span>Hello, {email}</span>
+                        </>
+                        :
                         <>
                         <Link to="register">Register</Link>
                         <Link to="login">Login</Link>

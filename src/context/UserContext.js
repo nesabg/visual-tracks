@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export const UserContext = React.createContext()
 
@@ -6,6 +6,13 @@ const UserContextProvider = (props) => {
 
     const [email, setEmail] = useState('')
     const [isLogin, setIsLogin] = useState(false)
+
+    useEffect(() => {
+        if(localStorage.getItem('email') !== null){
+            setEmail(localStorage.getItem('email'))
+            setIsLogin(true)
+        }
+    },[])
 
     const login = async (email, password) => {
 
@@ -17,19 +24,19 @@ const UserContextProvider = (props) => {
                     },
                     body: JSON.stringify({email, password})
                 })
+
                 if(response.status === 403){
                     return false
                 } else {
                     const token = await response.json()
 
                     setEmail(email)
+                    localStorage.setItem('email', email)
                     setIsLogin(true)
                     
                     document.cookie = `track-auth=${token}`
                     return true
-                }
-
-                
+                }              
 
             }catch(e){
                 console.error(e)
@@ -54,7 +61,6 @@ const UserContextProvider = (props) => {
                 return data
             }
           
- 
         }catch(e){
             console.error(e)
          }
@@ -63,6 +69,8 @@ const UserContextProvider = (props) => {
     const logout = () => {
         document.cookie = 'track-auth=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         setIsLogin(false)
+        setEmail('')
+        localStorage.removeItem('email')
     }
 
     return(
