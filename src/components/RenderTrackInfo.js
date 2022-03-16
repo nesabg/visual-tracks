@@ -28,9 +28,9 @@ const RenderTrackInfo = ({info}) => {
     const { deleteTrack } = useContext(TrackContext)
 
     const handleDelete = (id) => {
-        // if(window.confirm('Are you sure want to delete this item?')) {
+        if(window.confirm('Are you sure want to delete this item?')) {
             deleteTrack(id)   
-        // }
+        }
     }   
     
     return (<>

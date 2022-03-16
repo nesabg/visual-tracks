@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Heading from '../components/Heading'
 import Pagination from '../components/Pagination'
@@ -21,17 +21,38 @@ const LoginMessage = styled.div`
     color: white;
 `
 
-
 const Homepage = () => {
 
-    const { isLogin } = useContext(UserContext)
-    const { getData, tracks, tracksToRender, setTracksToRender } = useContext(TrackContext)
+    const [tracksToRender, setTracksToRender] = useState([])
+    const [tracks, setTracks] = useState([])
 
-   useEffect(() => {
+    const { isLogin } = useContext(UserContext)
+    const { getData, rawData } = useContext(TrackContext)
+
+    useEffect(() => {
        if(!isLogin){
             setTracksToRender([])
+        }else{
+            tracks.length > 0 ? setTracksToRender(tracks.slice(0, 20)) : setTracksToRender([])
         }
-   },[isLogin, setTracksToRender])
+    },[isLogin, tracks])
+
+    useEffect(() => {
+        formatData(rawData)
+    },[rawData])
+
+    const formatData = (arr) => {
+
+    const formatedArray = arr.reduce((acc, e) => {
+        acc[e.ip] === undefined ? acc[e.ip] = [e] : acc[e.ip].push(e)
+        return acc
+    },[])
+    
+    const finalData = Object.entries(formatedArray)
+    finalData.sort((a, b) => a[0].localeCompare(b[0]))
+
+    setTracks(prevState => finalData)
+}
 
    return (
         <div>
@@ -43,7 +64,7 @@ const Homepage = () => {
                     return <RenderTrack track={track} key={track[0]}/>
                 })}
             </div>
-            {isLogin ? <Pagination tracks={tracks.length} /> : null }
+            {isLogin ? <Pagination tracksLength={tracks.length} tracks={tracks} setTracksToRender={setTracksToRender} /> : null }
         </div>
     )
 }
