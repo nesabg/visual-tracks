@@ -10,6 +10,7 @@ const Label = styled.label`
     color: #fff;
 `
 const InputWrapper = styled.div`
+    display: inline-block;
     margin: 10px 0;
 `
 
