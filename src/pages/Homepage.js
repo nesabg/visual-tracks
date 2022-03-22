@@ -71,8 +71,11 @@ const Homepage = () => {
             { isLogin ? <Button onClick={getData}>Get Data</Button> : <LoginMessage>Please login ....</LoginMessage>}
             <hr/>
             <hr/>
-            <Select handleSelect={setFilterField} options={['Date', 'Os', 'Browser', 'IP' ]}/>
-            <Input type="text" label="Filter tracks" id="filter" handler={setInputFilter}/>
+            { isLogin ?
+            <>            
+                <Select handleSelect={setFilterField} options={['Date', 'Os', 'Browser', 'IP' ]}/>
+                <Input type="text" label="Filter tracks" id="filter" handler={setInputFilter}/>
+           
             <div>
                 { filteredTracks
                     .slice(coef(), coef() + numberOfTracksToShow)
@@ -80,6 +83,8 @@ const Homepage = () => {
                         return <RenderTrack track={track} key={track[0]}/>
                     })}
             </div>
+            </>    
+            : null }
             {isLogin ? <Pagination filteredTracks={filteredTracks} setPage={setPage} /> : null }
         </div>
     )
