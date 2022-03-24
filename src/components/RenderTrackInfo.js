@@ -10,6 +10,16 @@ margin-left: 20px;
 display: grid;
 grid-template-columns: 3fr 3fr 1fr;
 
+div:nth-child(1) {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+}
+
+a {
+    color: #faf;
+    text-decoration: none;
+}
+
 span {
     width: 50%;
     height: 25px;
@@ -35,13 +45,23 @@ const RenderTrackInfo = ({info}) => {
     
     return (<>
         {info.map(e => {
+            if(e.crds !== null){
+                
+            }
+            console.log(e.crds)
             return <FormatParagraph key={e._id}>
                     <div>
                         <div>{e.os}</div>
                         <div>{e.date}</div>
                         <div>{e.browser}</div>
-                </div> 
-                <div>{e.documentTitle}</div>
+
+                    </div> 
+                <div>
+                    <p>{e.documentTitle}</p>
+                    { e.crds !== null ?                             
+                        <a href={`http://www.google.com/maps/place/${e.crds.split("-")[0]},${e.crds.split("-")[1]}`} rel="noreferrer" target="_blank">Position</a> : 
+                    null}
+                </div>
                 <span onClick={ (a, _id) => handleDelete(e._id)}>Delete</span>
             </FormatParagraph>
         })}
