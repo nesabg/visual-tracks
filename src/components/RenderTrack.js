@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+import { FaNetworkWired } from 'react-icons/fa'
+
+
 import RenderTrackInfo from './RenderTrackInfo'
 
 const Title = styled.h2`
@@ -32,6 +35,12 @@ const Wrapper = styled.div`
     align-items: center;
     grid-template-columns: 90% 10%;
     border:1px solid #fff;
+
+    h2 {
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: sub;
+    }
 `
 
 const RenderTrack = ({ track }) =>{
@@ -45,8 +54,11 @@ const RenderTrack = ({ track }) =>{
 
     return (
         <>
-            <Wrapper>            
-                <Title onClick={toggleShow}>{track[0]}</Title>
+            <Wrapper>
+                <div>                
+                    <FaNetworkWired style={{color: 'aqua', margin: '-5px'}} size={20}/>            
+                    <Title onClick={toggleShow}>{track[0]}</Title>
+                </div>
                 <ToggleBtn onClick={toggleShow}><span>{ toggleBtnContent }</span></ToggleBtn>
             </Wrapper>
             {isShow ? <RenderTrackInfo info={track[1]}/> : null }

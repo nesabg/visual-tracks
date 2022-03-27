@@ -2,6 +2,8 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import { TrackContext } from '../context/TracksContext'
 
+import Icon from './Icon'
+
 const FormatParagraph = styled.div`
 color: white;
 border: 1px solid #fff;
@@ -9,11 +11,6 @@ padding: 10px 5px;
 margin-left: 20px;
 display: grid;
 grid-template-columns: 3fr 3fr 1fr;
-
-div:nth-child(1) {
-    display: grid;
-    grid-template-columns: 1fr 2fr 2fr;
-}
 
 a {
     color: #faf;
@@ -32,6 +29,16 @@ span {
     cursor: pointer;
 }
 `
+const BasicInfoWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+`
+
+const OsIconWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
 
 const RenderTrackInfo = ({info}) => {
 
@@ -45,20 +52,15 @@ const RenderTrackInfo = ({info}) => {
     
     return (<>
         {info.map(e => {
-            if(e.crds !== null){
-                
-            }
-            console.log(e.crds)
             return <FormatParagraph key={e._id}>
-                    <div>
-                        <div>{e.os}</div>
-                        <div>{e.date}</div>
-                        <div>{e.browser}</div>
-
-                    </div> 
+                <BasicInfoWrapper>
+                    <OsIconWrapper><Icon type={e.os}/></OsIconWrapper>
+                    <div>{e.date}</div>
+                    <div>{e.browser}</div>
+                </BasicInfoWrapper> 
                 <div>
                     <p>{e.documentTitle}</p>
-                    { e.crds !== null ?                             
+                    { e.crds ?                             
                         <a href={`http://www.google.com/maps/place/${e.crds.split("-")[0]},${e.crds.split("-")[1]}`} rel="noreferrer" target="_blank">Position</a> : 
                     null}
                 </div>
