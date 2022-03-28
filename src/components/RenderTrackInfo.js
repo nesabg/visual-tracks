@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import { TrackContext } from '../context/TracksContext'
 
+import dateFormat from '../utils/dateFormat'
 import Icon from './Icon'
 
 const FormatParagraph = styled.div`
@@ -55,7 +56,7 @@ const RenderTrackInfo = ({info}) => {
             return <FormatParagraph key={e._id}>
                 <BasicInfoWrapper>
                     <OsIconWrapper><Icon type={e.os}/></OsIconWrapper>
-                    <div>{e.date}</div>
+                    <div>{dateFormat(e.date)}</div>
                     <div>{e.browser}</div>
                 </BasicInfoWrapper> 
                 <div>
