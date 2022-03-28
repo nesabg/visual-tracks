@@ -43,7 +43,11 @@ const Homepage = () => {
     useEffect(() =>{
         setFilteredTracks(tracks
             .map(e => {
-                let innerFiltered = e[1].filter(i => i[filterField] !== null ? i[filterField].toLowerCase().includes(inputFilter) : undefined)
+                let innerFiltered = e[1].filter(i => {
+                    return i[filterField] !== null && i[filterField] !== undefined ? 
+                    i[filterField].toLowerCase().includes(inputFilter) : 
+                    undefined
+                })
                 if(innerFiltered.length === 0){
                     return undefined
                 }
