@@ -1,7 +1,8 @@
+import React, { useState } from 'react';
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
 
-import './App.css'
+
 import Main from "./components/Main";
 import Navigation from "./components/Navigation";
 import Homepage from "./pages/Homepage";
@@ -9,17 +10,19 @@ import Login from "./pages/Login";
 import Register from './pages/Register'
 
 const Wrapper = styled.div`
-    background-color: #282c34;
+    background-color: ${props => props.backColor || 'red'};
     min-height: 100vh;
     height: 100%;
 `
 
 
 function App() {
+  const [backColor, setBackColor] = useState('#123321')
   return (
     <Router>
-      <Wrapper>
-        <Navigation />
+      <Wrapper backColor={backColor}>
+        {/* <SketchPicker /> */}
+        <Navigation backColor={backColor} setBackColor={setBackColor}/>
         <Main>
           <Switch>
             <Route path='/' exact component={Homepage}/> 
