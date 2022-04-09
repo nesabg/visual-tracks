@@ -41,6 +41,10 @@ const OsIconWrapper = styled.div`
     align-items: center;
 `
 
+const PageTitle = styled.div`
+    padding: 10px 20px;
+`
+
 const RenderTrackInfo = ({info}) => {
 
     const { deleteTrack } = useContext(TrackContext)
@@ -60,7 +64,7 @@ const RenderTrackInfo = ({info}) => {
                     <div>{e.browser}</div>
                 </BasicInfoWrapper> 
                 <div>
-                    <p>{e.documentTitle}</p>
+                    <PageTitle>{e.documentTitle}</PageTitle>
                     { e.crds ?                             
                         <a href={`http://www.google.com/maps/place/${e.crds.split("-")[0]},${e.crds.split("-")[1]}`} rel="noreferrer" target="_blank">Position</a> : 
                     null}
