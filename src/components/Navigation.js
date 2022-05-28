@@ -78,7 +78,7 @@ const Navigation = ({backColor, setBackColor}) => {
                     { isLogin ? 
                         <>
                         <Link to="#" onClick={logout}>Logout</Link>
-                        <span>Hello, {email}</span>
+                        <Link to="/profile">Profile</Link>
                         </>
                         :
                         <>

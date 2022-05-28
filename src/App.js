@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import Register from './pages/Register'
+import Profile from './pages/Profile'
 
 const Wrapper = styled.div`
     background-color: ${props => props.backColor || 'red'};
@@ -28,6 +29,7 @@ function App() {
             <Route path='/' exact component={Homepage}/> 
             <Route path='/register' component={Register}/> 
             <Route path='/login' component={Login}/> 
+            <Route path='/profile' component={Profile}/> 
           </Switch>
         </Main>
       </Wrapper>

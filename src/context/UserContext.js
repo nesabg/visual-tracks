@@ -6,6 +6,7 @@ const UserContextProvider = (props) => {
 
     const [email, setEmail] = useState('')
     const [isLogin, setIsLogin] = useState(false)
+    const [avatarUrl, setAvatarUrl] = useState('')
 
     useEffect(() => {
         if(localStorage.getItem('email') !== null){
@@ -28,13 +29,14 @@ const UserContextProvider = (props) => {
                 if(response.status === 403){
                     return false
                 } else {
-                    const token = await response.json()
+                    const info = await response.json()
 
                     setEmail(email)
                     localStorage.setItem('email', email)
                     setIsLogin(true)
+                    setAvatarUrl(info.avatarUrl)
                     
-                    document.cookie = `track-auth=${token}`
+                    document.cookie = `track-auth=${info.token}`
                     return true
                 }              
 
@@ -74,7 +76,7 @@ const UserContextProvider = (props) => {
     }
 
     return(
-        <UserContext.Provider value={{email, isLogin, login, register, logout}}>
+        <UserContext.Provider value={{email, isLogin, login, register, logout, avatarUrl}}>
             {props.children}
         </UserContext.Provider>
     )

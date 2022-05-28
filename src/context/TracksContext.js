@@ -9,6 +9,9 @@ const TracksContextProvider = (props) => {
     const authCookie = document.cookie.length > 0 ? document.cookie.split('; ').find(e => e.includes('track-auth')).split('=')[1] : null   
 
     const getData = async () => {
+
+        console.log(authCookie)
+
         try{
             const res = await fetch('http://localhost:3001/api/all', {
                 method: 'GET',
