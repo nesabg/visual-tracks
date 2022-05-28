@@ -4,13 +4,13 @@ import styled from 'styled-components'
 const InputField = styled.input`
     width: 300px;
     padding: 6px 2px;
+    display: block;
 `
 const Label = styled.label`
     display: block;
     color: #fff;
 `
 const InputWrapper = styled.div`
-    display: inline-block;
     margin: 10px 0;
 `
 
