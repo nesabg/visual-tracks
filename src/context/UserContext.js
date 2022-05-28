@@ -44,8 +44,8 @@ const UserContextProvider = (props) => {
             }
     }
 
-    const register = async (email, password) => {
-        const body = JSON.stringify({email, password})
+    const register = async (email, password, avatarUrl) => {
+        const body = JSON.stringify({email, password, avatarUrl})
 
         try{
             const response = await fetch(`http://localhost:3001/api/user/register`, {

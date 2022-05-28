@@ -25,6 +25,7 @@ const Register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [rePassword, setRePassword] = useState('')
+    const [picture, setPicture] = useState('')
     const [error, setError] = useState(null)
 
     const history = useHistory()
@@ -33,16 +34,37 @@ const Register = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-
-        const result = await register(email, password)
-
-        if(result){
-            setError(result)
-        }else{
-            setError(null)
-            history.push('/login')
+        if(picture === ''){
+            alert('Please select picture')
+            return
         }
-    }  
+
+        const data = new FormData()
+        data.append('file', picture)
+        data.append('upload_preset', 'userAvatar')
+        data.append('cloud_name', 'de9lhvwsc')
+
+        try {
+            const response = await fetch('https://api.cloudinary.com/v1_1/de9lhvwsc/image/upload', {
+                    method: 'post',
+                    body: data
+                })
+            const resData = await response.json()
+            
+            const result = await register(email, password, resData.url)
+
+            if(result){
+                setError(result)
+            }else{
+                setError(null)
+                history.push('/login')
+            }
+        }catch(e){
+            console.log(e)
+        }
+
+    } 
+    
 
     return (
         <div>
@@ -60,8 +82,11 @@ const Register = () => {
                 <Input type="password" label="Repeat password" id="rePassword" handler={setRePassword}/>
                 { password !==  rePassword ? rePassword !== '' ? <Danger> Repeated password are not equal to password </Danger> :null : null }
 
-                <Button type="submit" name="Register"/>
+                <input type="file" label="Upload Avatar" id="upload" onChange={e => setPicture(e.target.files[0])} />
+
+                <Button type="submit" name="Register" />
             </form>
+
             <RedirectToLogin>
                 <span>If you have account login </span>
                 <Link to="/login" >Here</Link>
