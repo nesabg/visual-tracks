@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { Switch, Route, BrowserRouter as Router, Redirect } from "react-router-dom";
 import styled from "styled-components";
 
 
@@ -9,6 +9,8 @@ import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import Register from './pages/Register'
 import Profile from './pages/Profile'
+import { UserContext } from './context/UserContext'
+import NotFound from './pages/NotFound';
 
 const Wrapper = styled.div`
     background-color: ${props => props.backColor || 'red'};
@@ -17,8 +19,12 @@ const Wrapper = styled.div`
 `
 
 
+
 function App() {
   const [backColor, setBackColor] = useState('#123321')
+  
+  const { isLogin } = useContext(UserContext)
+
   return (
     <Router>
       <Wrapper backColor={backColor}>
@@ -27,9 +33,10 @@ function App() {
         <Main>
           <Switch>
             <Route path='/' exact component={Homepage}/> 
-            <Route path='/register' component={Register}/> 
-            <Route path='/login' component={Login}/> 
-            <Route path='/profile' component={Profile}/> 
+            <Route path='/register'>{ isLogin ? <Redirect to="/" /> : <Register /> } </Route>
+            <Route path='/login'>{ isLogin ? <Redirect to="/" /> : <Login /> } </Route>
+            <Route path='/profile'>{ isLogin ? <Profile /> : <Redirect to="/" />} </Route>
+            <Route path='*' component={NotFound} />
           </Switch>
         </Main>
       </Wrapper>
