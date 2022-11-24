@@ -36,7 +36,7 @@ const UserContextProvider = (props) => {
                     setIsLogin(true)
                     setAvatarUrl(info.avatarUrl)
                     
-                    document.cookie = `track-auth=${info.token}`
+                    document.cookie = `track-auth=${info}`
                     return true
                 }              
 
